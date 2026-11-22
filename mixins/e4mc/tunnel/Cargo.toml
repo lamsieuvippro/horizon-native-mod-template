@@ -1,0 +1,15 @@
+[package]
+name = "e4mc-tunnel"
+version = "0.1.0"
+edition = "2021"
+
+# Only crates already in Horizon's Cargo.lock may be listed, and each builds in
+# the version the lock holds ("*" accepts it). If one is missing the build stops
+# with E_CRATE_DEPENDENCY naming it. The feature names are the ones the original
+# e4mc client needs (WebSocket over TLS on tokio); a wrong feature name is
+# reported by cargo at build time.
+[dependencies]
+tokio = { version = "*", features = ["rt-multi-thread", "net", "io-util", "sync", "macros"] }
+async-tungstenite = { version = "*", features = ["tokio-runtime", "tokio-rustls-webpki-roots"] }
+futures-util = "*"
+serde_json = "*"
