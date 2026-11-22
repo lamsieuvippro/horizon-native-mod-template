@@ -1,1 +1,33 @@
+[mod]
+id = "e4mc"
+version = "0.1.0"
 
+[compatibility]
+horizon_revision = "ba6344a59cb9e755b730dcf02285fc0d33b97d3c"
+
+[[module]]
+id = "runtime"
+file = "crates/horizon-client/src/game.rs"
+name = "e4mc"
+source = "runtime.rs"
+
+[[crate]]
+id = "tunnel"
+path = "tunnel"
+
+# Hook names are guesses from native-mods.md; if the build says E_HOOK_UNKNOWN
+# it lists the real names, so only fix `hook` here.
+[[injection]]
+id = "server-tick"
+hook = "server_tick"
+hook_version = 1
+kind = "HEAD"
+helper = "tick.rs"
+bindings = [{ name = "game", ty = "&mut crate::game::Game<'_>", value = "&mut *self" }]
+
+[[injection]]
+id = "server-stopping"
+hook = "server_stopping"
+hook_version = 1
+kind = "HEAD"
+helper = "stop.rs"
